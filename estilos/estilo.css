@@ -3,6 +3,9 @@ background: #F3F3F3;
 font-family: 'Roboto', sans-serif;
 }
 .esconder{
+    display:none;  
+}
+.escondido{
     display:none;
 }
 .entrada{
@@ -11,8 +14,7 @@ font-family: 'Roboto', sans-serif;
     background: #FFFFFF;
     position: fixed;
     top: 0;
-    left: 0;
-    z-index: 2; 
+    left: 0; 
     display:flex;
     flex-direction: column;
     align-items: center; 
@@ -78,7 +80,11 @@ left: 22px;
 }
 
 .container_mensagens{
+width:100%;  
+height: 100vh;
+overflow-y: scroll;
 margin:105px auto;
+margin-bottom:80px;
 }
 
 .message, .status ,.private_message{
@@ -123,6 +129,8 @@ margin:105px auto;
 .inferior input{
 border:none;
 text-align: left;
+width:90%;
+height:60px;
 }
 ::placeholder { 
   color:#000000;

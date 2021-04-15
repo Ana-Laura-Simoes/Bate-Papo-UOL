@@ -1,8 +1,10 @@
-let NOME;
-PerguntaNome();
+let NOME=null;
 
+PerguntaNome()
 function PerguntaNome(){
    NOME=prompt("Informe seu nome:");
+   //const elemento= document.querySelector(".entrada input");
+   //NOME= elemento.value;
     enviaNome(NOME);
 }
 
@@ -14,13 +16,15 @@ function enviaNome(NOME){
      if(requisicao.then(buscarMensagem)){
         setInterval(toAqui,5000, dados);
      }
-     requisicao.catch(tratarError);
+     requisicao.catch(ErroLogin);
    }
 
-   function tratarError(){
-    alert("erro");
+   function ErroLogin(erro){
     const statusCode = erro.response.status;
-    console.log(statusCode);
+    if(statusCode === 400){
+        alert("Esse nome de usuário já está em uso!\nTente outro!");
+        PerguntaNome();
+    }
 }
 
    function toAqui(dados){
@@ -28,7 +32,21 @@ function enviaNome(NOME){
     console.log("enviando");
    }
   
+ function apaga(){
+    elemento=document.querySelector(".container_mensagens");
+    elemento.innerHTML=""; 
+ }  
+
+ function entrada(){
+    const elemento= document.querySelector(".entrada");
+    elemento.classList.add("esconder"); 
+    //elemento.classList.remove("entrada"); 
+    console.log(elemento);
+    buscarMensagem();
+}
+
 function buscarMensagem(){
+    
     console.log("buscando");
     const promessa=axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/messages");
     promessa.then(pegarDados);
@@ -43,6 +61,7 @@ function buscarMensagem(){
     }
 
     function colocarMensagens(dados,i){
+        //window.scrollTo(0, document.body.scrollHeight);
         elemento=document.querySelector(".container_mensagens");
         if((dados[i].type) === "message"){
             elemento.innerHTML += `<div class="${dados[i].type}"><p>${dados[i].time} <strong>${dados[i].from}</strong> para <strong>${dados[i].to}</strong> ${dados[i].text}</p></div>`
@@ -52,10 +71,32 @@ function buscarMensagem(){
         }
         
         if((dados[i].type) === "private_message"){
-            if(dados[i].to=== NOME)
+            if(dados[i].to === NOME)
             elemento.innerHTML += `<div class="${dados[i].type}"><p>${dados[i].time} <strong>${dados[i].from}</strong> para <strong>${dados[i].to}</strong> ${dados[i].text}</p></div>`
         }
-
+        //setTimeout(buscarMensagem,3000);
+        //apaga();
     }
+
+function EnviarMensagem(){
+    mensagem=document.querySelector(".inferior input");
+    const dados= {
+        from: NOME,
+        to: "todos",
+        text: mensagem.value,
+        type: "message"
+    }
+    const requisicao = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/messages", dados);
+    if(requisicao.then(buscarMensagem)){
+        mensagem.value="";
+        //window.scrollTo(0, document.body.scrollHeight);
+    } 
+    requisicao.catch(tratarError);
+}
+
+function tratarError(){
+    alert("erro");
+    location.reload(true);
+}
     
 
