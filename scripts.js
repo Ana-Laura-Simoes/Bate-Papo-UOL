@@ -4,35 +4,39 @@ function PerguntaNome(){
     const nome=prompt("Informe seu nome:");
     enviaNome(nome);
 }
-function buscarMensagem(){
-    console.log("buscando");
-    const promessa=axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/messages");
-    promessa.then(pegarDados)
-  
-}
+
 function enviaNome(nome){
     const dados={
        name: nome
      };
      const requisicao = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/participants`,dados)
-     //if(requisicao.then(setInterval(buscarMensagem,3000))){
-        //setInterval(toAqui,5000, dados);
-     //}
-     buscarMensagem();
+     if(requisicao.then(buscarMensagem)){
+        setInterval(toAqui,5000, dados);
+     }
+     requisicao.catch(tratarError);
    }
+
+   function tratarError(){
+    alert("erro");
+    const statusCode = erro.response.status;
+    console.log(statusCode);
+}
 
    function toAqui(dados){
-     const requisicao=axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/status`,dados);
-     console.log("enviando");
+    const requisicao=axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/status`,dados);
+    console.log("enviando");
    }
   
+function buscarMensagem(){
+    console.log("buscando");
+    const promessa=axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/messages");
+    promessa.then(pegarDados);
+}
+
+
 
     
-    function tratarError(){
-        alert("erro");
-        const statusCode = erro.response.status;
-        console.log(statusCode);
-    }
+
 
     function pegarDados(resposta){
      const dados=resposta.data;
