@@ -1,50 +1,40 @@
-let NOME=null;
+let NOME="";
 
-PerguntaNome()
 function PerguntaNome(){
-   NOME=prompt("Informe seu nome:");
-   //const elemento= document.querySelector(".entrada input");
-   //NOME= elemento.value;
-    enviaNome(NOME);
-}
+   //NOME=prompt("Informe seu nome:");
+   const elemento= document.querySelector(".entrada input");
+   NOME= elemento.value;
+   const dados={name: NOME};
+   const requisicao = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/participants`,dados);
+   requisicao.then(entrarNaSala);
+   requisicao.catch(ErroLogin);
 
-function enviaNome(NOME){
-    const dados={
-       name: NOME
-     };
-     const requisicao = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/participants`,dados)
-     if(requisicao.then(buscarMensagem)){
-        setInterval(toAqui,5000, dados);
-     }
-     requisicao.catch(ErroLogin);
-   }
+}
+function entrarNaSala(){
+    const elemento= document.querySelector(".entrada");
+    const pai=elemento.parentNode;
+    console.log(pai);
+    pai.classList.add("esconder"); 
+    
+    buscarMensagem();
+    //setInterval(buscarMensagem,3000);
+    setInterval(status,5000); 
+}
 
    function ErroLogin(erro){
     const statusCode = erro.response.status;
-    if(statusCode === 400){
+    if(statusCode !==200){
         alert("Esse nome de usuário já está em uso!\nTente outro!");
         PerguntaNome();
     }
 }
 
-   function toAqui(dados){
+   function status(){
+    const dados={name: NOME};
     const requisicao=axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/status`,dados);
     console.log("enviando");
    }
   
- function apaga(){
-    elemento=document.querySelector(".container_mensagens");
-    elemento.innerHTML=""; 
- }  
-
- function entrada(){
-    const elemento= document.querySelector(".entrada");
-    elemento.classList.add("esconder"); 
-    //elemento.classList.remove("entrada"); 
-    console.log(elemento);
-    buscarMensagem();
-}
-
 function buscarMensagem(){
     
     console.log("buscando");

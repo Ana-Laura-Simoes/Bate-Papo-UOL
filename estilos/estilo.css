@@ -24,7 +24,7 @@ width: 130px;
 height: 92px;
 margin:90px auto;
 }
-::placeholder { 
+#ENTRADA::placeholder { 
     color:#AEAEAE;
     font-family: Roboto;
     font-size: 18px;
@@ -132,7 +132,7 @@ text-align: left;
 width:90%;
 height:60px;
 }
-::placeholder { 
+#MENSAGEM::placeholder { 
   color:#000000;
   font-family: Roboto;
   font-size: 18px;
