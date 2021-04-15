@@ -15,17 +15,19 @@ function entrarNaSala(){
     const pai=elemento.parentNode;
     console.log(pai);
     pai.classList.add("esconder"); 
-    
     buscarMensagem();
-    //setInterval(buscarMensagem,3000);
+    setInterval(buscarMensagem,3000);
     setInterval(status,5000); 
 }
 
    function ErroLogin(erro){
     const statusCode = erro.response.status;
-    if(statusCode !==200){
+    if(statusCode ===400){
         alert("Esse nome de usuário já está em uso!\nTente outro!");
-        PerguntaNome();
+        const elemento= document.querySelector(".entrada input");
+        elemento.value=null;
+        NOME=NULL;
+       setTimeout(PerguntaNome,5000);
     }
 }
 
@@ -44,15 +46,20 @@ function buscarMensagem(){
 
     function pegarDados(resposta){
      const dados=resposta.data;
-     console.log(dados);
+     elemento=document.querySelector(".container_mensagens");
+     elemento.innerHTML="";
      for(let i=0;i<dados.length;i++){
          colocarMensagens(dados,i);
      }
+     //elemento.scrollIntoView(false);
+     //não faço ideia de como funcionou
+     document.body.scrollTop = document.body.scrollHeight;
+     document.documentElement.scrollTop = document.documentElement.scrollHeight; 
     }
 
     function colocarMensagens(dados,i){
-        //window.scrollTo(0, document.body.scrollHeight);
         elemento=document.querySelector(".container_mensagens");
+       
         if((dados[i].type) === "message"){
             elemento.innerHTML += `<div class="${dados[i].type}"><p>${dados[i].time} <strong>${dados[i].from}</strong> para <strong>${dados[i].to}</strong> ${dados[i].text}</p></div>`
         }
@@ -60,13 +67,20 @@ function buscarMensagem(){
             elemento.innerHTML += `<div class="${dados[i].type}"><p>${dados[i].time} <strong>${dados[i].from}</strong> ${dados[i].text}</p></div>`
         }
         
-        if((dados[i].type) === "private_message"){
-            if(dados[i].to === NOME)
-            elemento.innerHTML += `<div class="${dados[i].type}"><p>${dados[i].time} <strong>${dados[i].from}</strong> para <strong>${dados[i].to}</strong> ${dados[i].text}</p></div>`
+        if((dados[i].type) === "private_message" ){
+            if(dados[i].to === NOME || dados[i].from===NOME || dados[i].type==="todos"){
+                elemento.innerHTML += `<div class="${dados[i].type} mensagem"><p>${dados[i].time} <strong>${dados[i].from}</strong> para <strong>${dados[i].to}</strong> ${dados[i].text}</p></div>`
+            }
+           
         }
-        //setTimeout(buscarMensagem,3000);
-        //apaga();
+
     }
+
+    function scroll(){
+        const elemento = document.querySelector('.container_mensagens');
+        console.log(elemento);
+        elemento.scrollIntoView(false);
+     }
 
 function EnviarMensagem(){
     mensagem=document.querySelector(".inferior input");
@@ -79,14 +93,13 @@ function EnviarMensagem(){
     const requisicao = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/messages", dados);
     if(requisicao.then(buscarMensagem)){
         mensagem.value="";
-        //window.scrollTo(0, document.body.scrollHeight);
     } 
-    requisicao.catch(tratarError);
+    requisicao.catch(ErroMensagem);
 }
 
-function tratarError(){
-    alert("erro");
-    location.reload(true);
+function ErroMensagem(){
+    //location.reload(true);
+    window.location.reload();
 }
     
 

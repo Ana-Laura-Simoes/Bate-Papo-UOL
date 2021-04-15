@@ -5,9 +5,7 @@ font-family: 'Roboto', sans-serif;
 .esconder{
     display:none;  
 }
-.escondido{
-    display:none;
-}
+
 .entrada{
     width:100vw;
     height:100vh;
@@ -96,6 +94,7 @@ margin-bottom:80px;
     font-size: 14px;
     display: flex;
     align-items: center;
+    word-break: break-all;
 }
 
 .status{
