@@ -51,10 +51,11 @@ function buscarMensagem(){
      for(let i=0;i<dados.length;i++){
          colocarMensagens(dados,i);
      }
-     //elemento.scrollIntoView(false);
+     elemento.scrollIntoView(false);
+
      //não faço ideia de como funcionou
-     document.body.scrollTop = document.body.scrollHeight;
-     document.documentElement.scrollTop = document.documentElement.scrollHeight; 
+     //document.body.scrollTop = document.body.scrollHeight;
+     //document.documentElement.scrollTop = document.documentElement.scrollHeight; 
     }
 
     function colocarMensagens(dados,i){
