@@ -1,13 +1,14 @@
+let NOME;
 PerguntaNome();
 
 function PerguntaNome(){
-    const nome=prompt("Informe seu nome:");
-    enviaNome(nome);
+   NOME=prompt("Informe seu nome:");
+    enviaNome(NOME);
 }
 
-function enviaNome(nome){
+function enviaNome(NOME){
     const dados={
-       name: nome
+       name: NOME
      };
      const requisicao = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/participants`,dados)
      if(requisicao.then(buscarMensagem)){
@@ -33,11 +34,6 @@ function buscarMensagem(){
     promessa.then(pegarDados);
 }
 
-
-
-    
-
-
     function pegarDados(resposta){
      const dados=resposta.data;
      console.log(dados);
@@ -56,6 +52,7 @@ function buscarMensagem(){
         }
         
         if((dados[i].type) === "private_message"){
+            if(dados[i].to=== NOME)
             elemento.innerHTML += `<div class="${dados[i].type}"><p>${dados[i].time} <strong>${dados[i].from}</strong> para <strong>${dados[i].to}</strong> ${dados[i].text}</p></div>`
         }
 
