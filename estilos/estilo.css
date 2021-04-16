@@ -153,11 +153,18 @@ height:40px;
 .menuLateral{
     width:100vw;
     height:100vh;
-    background: rgba(0, 0, 0, 0.6);
     position: fixed;
     top: 0;
     left: 0;
     z-index: 2;
+}
+.fundo{
+    background: rgba(0, 0, 0, 0.6);
+    position: fixed;
+    top:0;
+    left:0;
+    width:30%;
+    height:100vh;
 }
 .sidebar{
     height:100vh;
