@@ -57,9 +57,9 @@ function pegarParticipantes(resposta){
     const dados=resposta.data;
     elemento=document.querySelector(".contatos_container");
     elemento.innerHTML=`<div class='contato' onclick='contato(this)'>
-    <ion-icon name='people'></ion-icon>
-    <p>Todos</p>
-    <ion-icon class="certinho esconder" name="checkmark"></ion-icon></div>`;
+    <div class=opcao><ion-icon name='people'></ion-icon>
+    <p>Todos</p></div>
+    <ion-icon class="certinho" name="checkmark"></ion-icon></div>`;
     for(let i=0;i<dados.length;i++){
         colocarParticipantes(dados,i);
     } 
@@ -67,23 +67,54 @@ function pegarParticipantes(resposta){
 
 function colocarParticipantes(dados,i){
     elemento=document.querySelector(".contatos_container");
+    
+    if(dados[i].name === PARA){
+        elemento.innerHTML +=` <div class="contato" onclick="contato(this)">
+        <div class=opcao><ion-icon name="person-circle"></ion-icon>
+        <p>${dados[i].name}</p></div>
+        <ion-icon class="certinho selecionado" name="checkmark"></ion-icon></div>` 
+    }
+    
+    
     elemento.innerHTML +=` <div class="contato" onclick="contato(this)">
-    <ion-icon name="person-circle"></ion-icon>
-    <p>${dados[i].name}</p>
-    <ion-icon class="certinho esconder" name="checkmark"></ion-icon></div>`
+    <div class=opcao><ion-icon name="person-circle"></ion-icon>
+    <p>${dados[i].name}</p></div>
+    <ion-icon class="certinho" name="checkmark"></ion-icon></div>`
 }
 
 function contato(id){
+    id.classList.add("selecionado");
     let destinatario = id.querySelector("p").innerHTML;
     PARA = destinatario;
+    
+
+    const primeiroSelecionado = document.querySelector(".contato .selecionado");
+
+    if(primeiroSelecionado !== null){
+        primeiroSelecionado.classList.remove('selecionado');
+    } 
+    id.querySelector(".certinho").classList.add('selecionado') ;
+        
     alteraFrase();
 }
 
 function visibilidade(id){
+    id.classList.add("selecionado");
+
     let visibilidade = id.querySelector("p").innerHTML;
     VISIVEL = visibilidade;
     if(VISIVEL==="Reservadamente") type="private_message";
     else if(VISIVEL === "Público") type="message";
+
+    const primeiroSelecionado = document.querySelector(".visibilidade .selecionado");
+
+    if(primeiroSelecionado !== null){
+       primeiroSelecionado.classList.remove('selecionado');
+    } 
+    id.querySelector(".certinho").classList.add('selecionado') ;
+
+
+
     alteraFrase();
 }
 

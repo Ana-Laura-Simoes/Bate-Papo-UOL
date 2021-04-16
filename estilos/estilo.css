@@ -187,9 +187,22 @@ height:40px;
 }
 .contato, .visibilidade{
     display:flex;
+    justify-content: space-between;
+}
+ .opcao{
+    display:flex;
     align-items: center;
     padding:10px;
 }
-.contato ion-icon, .visibilidade ion-icon{
+.opcao ion-icon{
     margin:0 8px;
+}
+.certinho{
+    color: #28BB25;
+    font-size: 15px;
+   opacity: 0;
+}
+
+.selecionado{
+    opacity: 1;
 }

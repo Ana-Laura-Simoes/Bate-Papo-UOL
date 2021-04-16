@@ -42,8 +42,13 @@
             <p>Escolha a visibilidade:</p>
         </div> 
         <div class=visibilidade_container>
-            <div class="visibilidade" onclick="visibilidade(this)"><ion-icon name="lock-open"></ion-icon><p>Público</p></div>
-            <div class="visibilidade" onclick="visibilidade(this)"><ion-icon name="lock-closed"></ion-icon><p>Reservadamente</p></div>
+            <div class="visibilidade" onclick="visibilidade(this)">
+            <div class="opcao"><ion-icon name="lock-open"></ion-icon><p>Público</p></div>
+            <ion-icon class="certinho" name="checkmark"></ion-icon></div>
+            
+            <div class="visibilidade" onclick="visibilidade(this)">
+            <div class="opcao"><ion-icon name="lock-closed"></ion-icon><p>Reservadamente</p></div>
+            <ion-icon class="certinho" name="checkmark"></ion-icon></div>
         </div>
     </div>
 </div>
