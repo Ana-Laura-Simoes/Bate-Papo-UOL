@@ -134,7 +134,7 @@ margin-bottom:80px;
 .enviarmensagem input{
 border:none;
 text-align: left;
-width:80%;
+width:80vw;
 height:40px;
 }
 #MENSAGEM::placeholder { 
