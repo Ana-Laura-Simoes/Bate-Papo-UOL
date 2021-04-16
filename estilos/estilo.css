@@ -107,39 +107,50 @@ margin-bottom:80px;
 
 .private_message{
     background: #FFDEDE;
-}   
+}  
 .inferior{
     height: 80px;
     width: 100%;
     position:fixed;
     left: 0;
     bottom:0;
-    background:#FFFFFF;    
+    background:#FFFFFF; 
     box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.05);
     display:flex;
     justify-content: space-between;
     align-items: center;
-    padding:25px;
-}
-
+    padding: 20px;
+} 
 .inferior ion-icon{
     font-size: 26px;
 }
-.inferior input{
+.enviarmensagem{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+
+.enviarmensagem input{
 border:none;
 text-align: left;
-width:90%;
-height:60px;
+width:80%;
+height:40px;
 }
 #MENSAGEM::placeholder { 
   color:#000000;
   font-family: Roboto;
   font-size: 18px;
   font-style: italic;
-  line-height: 21px;
+  font-weight:400;
   font-family: 'Roboto', sans-serif;
 }
-.fundo{
+.frase{
+ font:Roboto;
+ font-size:14px;
+ font-weight:300;
+}
+.menuLateral{
     width:100vw;
     height:100vh;
     background: rgba(0, 0, 0, 0.6);
@@ -155,6 +166,8 @@ height:60px;
     position:fixed;
     right:0;
     top:0;
+    overflow-y:scroll;
+    padding:30px;
 }
 
 .titulo{

@@ -13,35 +13,37 @@
 <body>
     <div class="topo">
     <img src="imagens/logo 1.png" class="logo"/>
-    <ion-icon name="people"></ion-icon>
+    <ion-icon name="people" onclick="MenuLateral()"></ion-icon>
 </div>    
 
 <div class="container_mensagens">
 </div>
 
 <div class="inferior">
-    <input type="text" id="MENSAGEM" placeholder="Escreva aqui... ">
-    <ion-icon name="paper-plane-outline" onclick="EnviarMensagem()"></ion-icon>
+    <div class="enviarmensagem">
+        <input type="text" id="MENSAGEM" placeholder="Escreva aqui... ">
+        <p><span class="frase">Enviando para Todos (Público)</span></p>
+    </div>
+    <div><ion-icon name="paper-plane-outline" onclick="EnviarMensagem()"></ion-icon></div>
+  
 </div>
 
-<div class="fundo esconder">
+
+<div class="menuLateral esconder" onclick="FechaMenu()">
     <div class="sidebar">
 
         <div class="titulo">
             <p>Escolha um contato para enviar mensagem:</p>
         </div> 
         <div class="contatos_container">
-            <div class="contato"><ion-icon name="people"></ion-icon><p>Todos </p></div>
-            <div class="contato"><ion-icon name="person-circle"></ion-icon><p>João</p></div>
-            <div class="contato"><ion-icon name="person-circle"></ion-icon><p>Maria</p></div>
         </div>
 
         <div class="titulo">
             <p>Escolha a visibilidade:</p>
         </div> 
         <div class=visibilidade_container>
-            <div class="visibilidade publico"><ion-icon name="lock-open"></ion-icon><p>Público</p></div>
-            <div class="visibilidade publico"><ion-icon name="lock-closed"></ion-icon><p>Reservadamente</p></div>
+            <div class="visibilidade" onclick="visibilidade(this)"><ion-icon name="lock-open"></ion-icon><p>Público</p></div>
+            <div class="visibilidade" onclick="visibilidade(this)"><ion-icon name="lock-closed"></ion-icon><p>Reservadamente</p></div>
         </div>
     </div>
 </div>

@@ -1,5 +1,7 @@
 let NOME="";
-
+let PARA="Todos";
+let VISIVEL="Público";
+let type="message";
 function PerguntaNome(){
    //NOME=prompt("Informe seu nome:");
    const elemento= document.querySelector(".entrada input");
@@ -16,13 +18,15 @@ function entrarNaSala(){
     console.log(pai);
     pai.classList.add("esconder"); 
     buscarMensagem();
+    ListaParticipantes();
     setInterval(buscarMensagem,3000);
     setInterval(status,5000); 
+    setInterval(ListaParticipantes,10000); 
 }
 
    function ErroLogin(erro){
     const statusCode = erro.response.status;
-    if(statusCode ===400){
+    if(statusCode === 400){
         alert("Esse nome de usuário já está em uso!\nTente outro!");
         const elemento= document.querySelector(".entrada input");
         elemento.value=null;
@@ -37,11 +41,56 @@ function entrarNaSala(){
     console.log("enviando");
    }
   
+function ListaParticipantes(){
+    const promessa=axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/participants");
+    promessa.then(pegarParticipantes);
+}
+
 function buscarMensagem(){
     
     console.log("buscando");
     const promessa=axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/messages");
     promessa.then(pegarDados);
+}
+
+function pegarParticipantes(resposta){
+    const dados=resposta.data;
+    elemento=document.querySelector(".contatos_container");
+    elemento.innerHTML=`<div class='contato' onclick='contato(this)'>
+    <ion-icon name='people'></ion-icon>
+    <p>Todos</p>
+    <ion-icon class="certinho esconder" name="checkmark"></ion-icon></div>`;
+    for(let i=0;i<dados.length;i++){
+        colocarParticipantes(dados,i);
+    } 
+}
+
+function colocarParticipantes(dados,i){
+    elemento=document.querySelector(".contatos_container");
+    elemento.innerHTML +=` <div class="contato" onclick="contato(this)">
+    <ion-icon name="person-circle"></ion-icon>
+    <p>${dados[i].name}</p>
+    <ion-icon class="certinho esconder" name="checkmark"></ion-icon></div>`
+}
+
+function contato(id){
+    let destinatario = id.querySelector("p").innerHTML;
+    PARA = destinatario;
+    alteraFrase();
+}
+
+function visibilidade(id){
+    let visibilidade = id.querySelector("p").innerHTML;
+    VISIVEL = visibilidade;
+    if(VISIVEL==="Reservadamente") type="private_message";
+    else if(VISIVEL === "Público") type="message";
+    alteraFrase();
+}
+
+function alteraFrase(){
+    let frase=document.querySelector(".enviarmensagem .frase");
+    
+    frase.innerHTML = `Enviando para ${PARA} (${VISIVEL})`  
 }
 
     function pegarDados(resposta){
@@ -52,11 +101,6 @@ function buscarMensagem(){
          colocarMensagens(dados,i);
      }
      scroll();
-     //elemento.scrollIntoView(false);
-
-     //não faço ideia de como funcionou
-     //document.body.scrollTop = document.body.scrollHeight;
-     //document.documentElement.scrollTop = document.documentElement.scrollHeight; 
     }
 
     function colocarMensagens(dados,i){
@@ -72,10 +116,8 @@ function buscarMensagem(){
         if((dados[i].type) === "private_message" ){
             if(dados[i].to === NOME || dados[i].from===NOME || dados[i].type==="todos"){
                 elemento.innerHTML += `<div class="${dados[i].type} mensagem"><p>${dados[i].time} <strong>${dados[i].from}</strong> para <strong>${dados[i].to}</strong> ${dados[i].text}</p></div>`
-            }
-           
+            }  
         }
-
     }
 
     function scroll(){
@@ -88,9 +130,9 @@ function EnviarMensagem(){
     mensagem=document.querySelector(".inferior input");
     const dados= {
         from: NOME,
-        to: "todos",
+        to: PARA,
         text: mensagem.value,
-        type: "message"
+        type: type
     }
     const requisicao = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/messages", dados);
     if(requisicao.then(buscarMensagem)){
@@ -100,8 +142,17 @@ function EnviarMensagem(){
 }
 
 function ErroMensagem(){
-    //location.reload(true);
     window.location.reload();
 }
-    
+  
+
+function MenuLateral(){
+    const menulateral=document.querySelector(".menuLateral");
+    menulateral.classList.remove("esconder");
+}
+
+function FechaMenu(){
+    const menulateral=document.querySelector(".menuLateral");
+    menulateral.classList.add("esconder");
+}
 
