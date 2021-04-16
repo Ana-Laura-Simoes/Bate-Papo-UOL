@@ -51,7 +51,8 @@ function buscarMensagem(){
      for(let i=0;i<dados.length;i++){
          colocarMensagens(dados,i);
      }
-     elemento.scrollIntoView(false);
+     scroll();
+     //elemento.scrollIntoView(false);
 
      //não faço ideia de como funcionou
      //document.body.scrollTop = document.body.scrollHeight;
@@ -62,10 +63,10 @@ function buscarMensagem(){
         elemento=document.querySelector(".container_mensagens");
        
         if((dados[i].type) === "message"){
-            elemento.innerHTML += `<div class="${dados[i].type}"><p>${dados[i].time} <strong>${dados[i].from}</strong> para <strong>${dados[i].to}</strong> ${dados[i].text}</p></div>`
+            elemento.innerHTML += `<div class="${dados[i].type} mensagem"><p>${dados[i].time} <strong>${dados[i].from}</strong> para <strong>${dados[i].to}</strong> ${dados[i].text}</p></div>`
         }
         if((dados[i].type) === "status"){
-            elemento.innerHTML += `<div class="${dados[i].type}"><p>${dados[i].time} <strong>${dados[i].from}</strong> ${dados[i].text}</p></div>`
+            elemento.innerHTML += `<div class="${dados[i].type} mensagem"><p>${dados[i].time} <strong>${dados[i].from}</strong> ${dados[i].text}</p></div>`
         }
         
         if((dados[i].type) === "private_message" ){
@@ -78,9 +79,9 @@ function buscarMensagem(){
     }
 
     function scroll(){
-        const elemento = document.querySelector('.container_mensagens');
+        const elemento = document.querySelector('.container_mensagens .mensagem:last-child');
         console.log(elemento);
-        elemento.scrollIntoView(false);
+        elemento.scrollIntoView();
      }
 
 function EnviarMensagem(){
