@@ -187,3 +187,10 @@ function FechaMenu(){
     menulateral.classList.add("esconder");
 }
 
+
+document.addEventListener("keypress", function(e){
+    if(e.key === 'Enter') {
+        EnviarMensagem();
+
+    }
+  });
