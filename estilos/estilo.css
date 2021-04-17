@@ -165,7 +165,7 @@ height:40px;
     right:0;
     top:0;
     overflow-y:scroll;
-    padding:30px;
+    padding:20px;
 }
 
 .titulo{
@@ -173,10 +173,11 @@ height:40px;
     height:84px;
     font-size: 16px;
     text-align: center;
-    padding:45px;
+    padding:30px;
     font-weight: bold;
     line-height: 19px;
     margin:0 auto;
+    margin-bottom:30px;
 }
 
 .contatos_container, .visibilidade_container{
@@ -191,6 +192,7 @@ height:40px;
     display:flex;
     align-items: center;
     padding:10px;
+    word-break: break-all;
 }
 .opcao ion-icon{
     margin:0 8px;
@@ -205,3 +207,4 @@ height:40px;
 .selecionado{
     opacity: 1;
 }
+
